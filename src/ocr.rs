@@ -13,8 +13,6 @@ pub fn ocr_text_location(target_text: &str, image: &[u8]) -> Result<Rectangle, E
         .set_rectangle(51, 46, 571, 53)
         .get_hocr_text(0)?;
 
-    println!("{}", html);
-
     let document = Html::parse_fragment(&html);
     let word_selector = Selector::parse(".ocrx_word")?;
     let char_selector = Selector::parse(".ocrx_cinfo")?;
@@ -30,8 +28,6 @@ pub fn ocr_text_location(target_text: &str, image: &[u8]) -> Result<Rectangle, E
         for chara in word.select(&char_selector) {
             let current_char = chara.inner_html().chars().next().unwrap();
             let target_char = target_chars[current_index];
-
-            println!("{} | {}", current_char, target_char);
 
             if current_char != target_char {
                 bbox_list.clear();

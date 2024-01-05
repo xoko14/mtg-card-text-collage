@@ -37,6 +37,8 @@ async fn build_card_collage(text: &str) -> Result<DynamicImage, Error>{
             }
             let splice = word.get(current_index..current_index+splice_size).unwrap();
 
+            println!("Searching for \"{}\"...", splice);
+
             let img = match find_card_and_crop(splice).await {
                 Ok(i) => i,
                 Err(_) => {
@@ -75,16 +77,14 @@ async fn find_card_and_crop(target_text: &str) -> Result<DynamicImage, Error>{
         let image_data = reqwest::get(image_url.as_str())
         .await.unwrap().bytes().await.unwrap();
 
-        println!("got image data");
-
         let bbox = ocr::ocr_text_location(target_text, &image_data);
 
-        println!("Card: {} | {}", card.name, image_url.as_str());
         let rect = match bbox {
             Ok(b) => b,
             Err(_) => continue
         };
-        println!("{},{},{},{}", rect.pos.x, rect.pos.y, rect.size.x, rect.size.y);
+
+        println!("Using card: {} | {}", card.name, image_url.as_str());
 
         let mut img = Reader::new(Cursor::new(&image_data))
             .with_guessed_format().unwrap()
