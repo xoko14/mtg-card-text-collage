@@ -6,8 +6,10 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-color-eyre = "0.6.2"
-mtgapi-client = "0.2.0"
-opencv = "0.88.5"
+dialoguer = "0.11.0"
+image = "0.24.7"
+reqwest = "0.11.23"
+scraper = "0.18.1"
+scryfall = "0.14.2"
 tesseract = "0.15.0"
 tokio = { version = "1.35.1", features = ["full"] }
