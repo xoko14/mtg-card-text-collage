@@ -20,7 +20,7 @@ async fn main(){
         Ok(i) => i,
         Err(e) => Err(e).unwrap()
     };
-    image.save("result.jpg").unwrap();
+    image.save("result.png").unwrap();
 }
 
 async fn build_card_collage(text: &str) -> Result<DynamicImage, Error>{
@@ -69,7 +69,7 @@ async fn find_card_and_crop(target_text: &str) -> Result<DynamicImage, Error>{
     .into_inner();
 
     for card in results{
-        let image_url = match card.image_uris.get("large") {
+        let image_url = match card.image_uris.and_then(|i| i.large) {
             Some(url) => url,
             None => continue
         };

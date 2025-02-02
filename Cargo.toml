@@ -7,9 +7,10 @@ edition = "2021"
 
 [dependencies]
 dialoguer = "0.11.0"
-image = "0.24.7"
-reqwest = "0.11.23"
-scraper = "0.18.1"
-scryfall = "0.14.2"
-tesseract = "0.15.0"
+image = "0.25.5"
+reqwest = "0.12.12"
+scraper = "0.22.0"
+scryfall = { version = "0.18.0" , features = ["unknown_variants"]}
+tesseract = "0.15.1"
+leptonica-sys = "0.4.9"
 tokio = { version = "1.35.1", features = ["full"] }
